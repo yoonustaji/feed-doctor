@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why is my Google Shopping product disapproved? (2026 guide)</title>
+<meta name="description" content="The real reasons Google Merchant Center disapproves products in 2026 — invalid GTIN, price/availability mismatches, image and title issues — and exactly how to fix each one.">
+<link rel="canonical" href="https://yoonustaji.github.io/feed-doctor/guides/why-is-my-google-shopping-product-disapproved.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why is my Google Shopping product disapproved? (2026 guide)">
+<meta property="og:description" content="The real reasons Merchant Center disapproves products — and how to fix each one.">
+<meta property="og:image" content="https://yoonustaji.github.io/feed-doctor/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2338;--line:#273250;--text:#e8edf7;--muted:#9aa7c2;--brand:#4f8cff;--good:#22c55e;--crit:#ff5d6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 72px}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.top{font-size:14px;color:var(--muted)}
+h1{font-size:32px;line-height:1.2;letter-spacing:-.02em;margin:.4em 0 .2em}
+h2{font-size:22px;margin:1.6em 0 .3em}
+.lede{color:var(--muted);font-size:19px}
+.cta{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:22px;margin:26px 0;text-align:center}
+.cta h3{margin:.1em 0 .3em}
+.btn{display:inline-block;background:var(--brand);color:#fff;border-radius:10px;padding:12px 22px;font-weight:600;margin-top:6px}
+.muted{color:var(--muted)}
+code{background:#0e1424;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:15px}
+ul{padding-left:22px}li{margin:.3em 0}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:14px}
+.tag{color:var(--crit);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="top"><a href="../index.html">← Feed Doctor</a> · free Google Shopping feed audit</p>
+  <h1>Why is my Google Shopping product disapproved?</h1>
+  <p class="lede">Nearly every Merchant Center disapproval comes down to a handful of data problems in your
+  product feed. Here are the real causes in 2026 — ranked by how often they bite — and how to fix each.</p>
+
+  <div class="cta">
+    <h3>See your own disapprovals in 10 seconds</h3>
+    <p class="muted">Drop your product feed into Feed Doctor and get an instant, plain-English list of which
+    products will be rejected and why. Free, and your data never leaves your browser.</p>
+    <a class="btn" href="../index.html">Audit my feed free →</a>
+  </div>
+
+  <h2>1. Missing or invalid GTIN <span class="tag">most common</span></h2>
+  <p>If your product has a real barcode (GTIN/EAN/UPC), Google expects it — and it must pass a
+  <em>check-digit</em> test. A single mistyped digit fails validation and disapproves the item. If a
+  product genuinely has no GTIN (handmade, custom, own-brand), don't invent one — that gets your account
+  suspended. Instead set <code>identifier_exists = no</code> and provide a <code>brand</code> where you can.
+  <a href="fix-missing-invalid-gtin-google-shopping.html">Full GTIN fix guide →</a></p>
+
+  <h2>2. Price mismatch or bad format</h2>
+  <p>The price in your feed must match the price on your landing page (and its structured data), and it must
+  be formatted as a number plus an ISO currency — e.g. <code>24.99 GBP</code>, not <code>£24.99</code> or
+  <code>24,99</code>. Comma decimal separators and currency symbols are the usual culprits.</p>
+
+  <h2>3. Availability missing or invalid</h2>
+  <p>Availability must be exactly one of <code>in_stock</code>, <code>out_of_stock</code>,
+  <code>preorder</code>, or <code>backorder</code>. Values like <code>available</code>, <code>in stock</code>,
+  or <code>yes</code> are rejected. It also has to match what a shopper sees on the page.</p>
+
+  <h2>4. Image problems</h2>
+  <p>Every item needs a working <code>image_link</code> (a full <code>https://</code> URL). Broken links,
+  placeholder/"no image" graphics, promotional text or watermarks on the image, and too-small images are all
+  disapproval triggers.</p>
+
+  <h2>5. Title and description issues</h2>
+  <p>Promotional text in titles (<em>"Free shipping", "Sale", "Best price"</em>), ALL-CAPS titles, and
+  titles over 150 characters all get flagged. Titles should describe the product, not advertise it.</p>
+
+  <h2>6. Missing required fields</h2>
+  <p>Every product needs a unique <code>id</code>, a <code>title</code>, a <code>description</code>, a
+  <code>link</code>, an <code>image_link</code>, <code>price</code>, and <code>availability</code>. Miss any
+  and the item won't be listed.</p>
+
+  <h2>The fast way to find yours</h2>
+  <p>Rather than reading Merchant Center's diagnostics row by row, export your product feed (a Shopify CSV
+  export or your Google feed) and run it through <a href="../index.html">Feed Doctor</a>. It checks all of the
+  above against Google's product-data spec and shows you a ranked list of exactly what to fix — in seconds,
+  entirely in your browser.</p>
+
+  <div class="cta">
+    <h3>Fix them in one click</h3>
+    <p class="muted">Feed Doctor's Fixer generates a corrected, ready-to-upload feed — GTINs handled the safe
+    way, prices &amp; availability normalised, titles cleaned.</p>
+    <a class="btn" href="https://winterjoy1.gumroad.com/l/feeddoctor">Get the Fixer — £24 →</a>
+  </div>
+
+  <p class="foot">Related: <a href="fix-missing-invalid-gtin-google-shopping.html">Fixing invalid GTINs</a> ·
+  <a href="shopify-google-shopping-feed-errors.html">10 common Shopify feed errors</a><br>
+  Feed Doctor validates against Google's public product-data spec. Not affiliated with Google.</p>
+</div>
+</body>
+</html>

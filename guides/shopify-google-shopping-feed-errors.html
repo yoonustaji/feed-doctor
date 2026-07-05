@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 common Shopify → Google Shopping feed errors (and how to fix each)</title>
+<meta name="description" content="The 10 product-feed errors that most often disapprove Shopify products in Google Merchant Center in 2026 — with the exact fix for each.">
+<link rel="canonical" href="https://yoonustaji.github.io/feed-doctor/guides/shopify-google-shopping-feed-errors.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10 common Shopify → Google Shopping feed errors (and fixes)">
+<meta property="og:description" content="The feed errors that most often disapprove Shopify products — with the fix for each.">
+<meta property="og:image" content="https://yoonustaji.github.io/feed-doctor/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2338;--line:#273250;--text:#e8edf7;--muted:#9aa7c2;--brand:#4f8cff;--good:#22c55e;--crit:#ff5d6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 72px}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.top{font-size:14px;color:var(--muted)}
+h1{font-size:30px;line-height:1.2;letter-spacing:-.02em;margin:.4em 0 .2em}
+h2{font-size:20px;margin:1.5em 0 .2em}
+.n{color:var(--brand)}
+.lede{color:var(--muted);font-size:19px}
+.fix{color:var(--good);font-size:15px}
+.cta{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:22px;margin:26px 0;text-align:center}
+.cta h3{margin:.1em 0 .3em}
+.btn{display:inline-block;background:var(--brand);color:#fff;border-radius:10px;padding:12px 22px;font-weight:600;margin-top:6px}
+.muted{color:var(--muted)}
+code{background:#0e1424;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:15px}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="top"><a href="../index.html">← Feed Doctor</a> · free Google Shopping feed audit</p>
+  <h1>10 common Shopify → Google Shopping feed errors (and how to fix each)</h1>
+  <p class="lede">Shopify's product data doesn't always line up with what Google Merchant Center demands.
+  These ten mismatches cause the vast majority of disapprovals — here's the fix for each.</p>
+
+  <div class="cta">
+    <h3>Find which of these are in your feed</h3>
+    <p class="muted">Export your Shopify products and drop the file into Feed Doctor for an instant, ranked
+    report. Free, private, no signup.</p>
+    <a class="btn" href="../index.html">Audit my feed free →</a>
+  </div>
+
+  <h2><span class="n">1.</span> Invalid GTIN check digit</h2>
+  <p>A mistyped barcode fails Google's check-digit test. <span class="fix">Fix: correct it, or set
+  <code>identifier_exists = no</code> — never invent one. <a href="fix-missing-invalid-gtin-google-shopping.html">Full guide.</a></span></p>
+
+  <h2><span class="n">2.</span> No identifier and identifier_exists not set</h2>
+  <p>Own-brand items with no GTIN/MPN still need <code>identifier_exists = no</code>.
+  <span class="fix">Fix: add that field for unbranded products.</span></p>
+
+  <h2><span class="n">3.</span> Price format / currency</h2>
+  <p>Google wants <code>24.99 GBP</code>, not <code>£24.99</code> or <code>24,99</code>.
+  <span class="fix">Fix: number + ISO currency code, dot decimal.</span></p>
+
+  <h2><span class="n">4.</span> Availability value not recognised</h2>
+  <p><code>available</code> / <code>in stock</code> / <code>yes</code> are rejected.
+  <span class="fix">Fix: use <code>in_stock</code>, <code>out_of_stock</code>, <code>preorder</code>, or <code>backorder</code>.</span></p>
+
+  <h2><span class="n">5.</span> Missing image_link</h2>
+  <p>No image, or a broken/placeholder image URL. <span class="fix">Fix: a valid <code>https://</code>
+  product image, no watermarks or promo text.</span></p>
+
+  <h2><span class="n">6.</span> Promotional text in the title</h2>
+  <p>"Free shipping", "Sale", "Best price" in titles get flagged. <span class="fix">Fix: describe the
+  product, don't advertise it.</span></p>
+
+  <h2><span class="n">7.</span> ALL-CAPS titles</h2>
+  <p>Fully capitalised titles are a classic trigger. <span class="fix">Fix: normal title case.</span></p>
+
+  <h2><span class="n">8.</span> Title over 150 characters</h2>
+  <p>Long titles get truncated or penalised. <span class="fix">Fix: trim to ≤150, front-load key words.</span></p>
+
+  <h2><span class="n">9.</span> Missing description</h2>
+  <p>Empty descriptions (common when Shopify body HTML is blank) disapprove items.
+  <span class="fix">Fix: add a real description, no promo text.</span></p>
+
+  <h2><span class="n">10.</span> Missing id or link</h2>
+  <p>Every product needs a unique <code>id</code> and a valid landing-page <code>link</code>.
+  <span class="fix">Fix: ensure both are present and unique.</span></p>
+
+  <div class="cta">
+    <h3>Fix all ten in one pass</h3>
+    <p class="muted">Feed Doctor's Fixer normalises availability, prices, titles and identifiers and hands
+    you a corrected feed to re-upload. Anything it can't safely auto-fix it lists for you.</p>
+    <a class="btn" href="https://winterjoy1.gumroad.com/l/feeddoctor">Get the Fixer — £24 →</a>
+  </div>
+
+  <p class="foot">Related: <a href="why-is-my-google-shopping-product-disapproved.html">Why products get
+  disapproved</a> · <a href="fix-missing-invalid-gtin-google-shopping.html">Fixing invalid GTINs</a><br>
+  Not affiliated with Google. Validates against Google's public product-data spec.</p>
+</div>
+</body>
+</html>

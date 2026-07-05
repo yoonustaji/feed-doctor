@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yoonustaji.github.io/feed-doctor/sitemap.xml

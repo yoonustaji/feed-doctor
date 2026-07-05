@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to fix “Missing or invalid GTIN” in Google Shopping (2026)</title>
+<meta name="description" content="What Google's 'Missing or invalid GTIN' disapproval really means, how the GTIN check digit works, and the safe way to fix it — including when to use identifier_exists = no.">
+<link rel="canonical" href="https://yoonustaji.github.io/feed-doctor/guides/fix-missing-invalid-gtin-google-shopping.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to fix “Missing or invalid GTIN” in Google Shopping">
+<meta property="og:description" content="What the GTIN disapproval means and the safe way to fix it — never invent a GTIN.">
+<meta property="og:image" content="https://yoonustaji.github.io/feed-doctor/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2338;--line:#273250;--text:#e8edf7;--muted:#9aa7c2;--brand:#4f8cff;--good:#22c55e;--crit:#ff5d6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 72px}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.top{font-size:14px;color:var(--muted)}
+h1{font-size:30px;line-height:1.2;letter-spacing:-.02em;margin:.4em 0 .2em}
+h2{font-size:21px;margin:1.6em 0 .3em}
+.lede{color:var(--muted);font-size:19px}
+.cta{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:22px;margin:26px 0;text-align:center}
+.cta h3{margin:.1em 0 .3em}
+.btn{display:inline-block;background:var(--brand);color:#fff;border-radius:10px;padding:12px 22px;font-weight:600;margin-top:6px}
+.warn{background:rgba(255,93,108,.1);border:1px solid rgba(255,93,108,.35);border-radius:10px;padding:14px 16px;margin:18px 0}
+.muted{color:var(--muted)}
+code{background:#0e1424;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:15px}
+ol,ul{padding-left:22px}li{margin:.3em 0}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="top"><a href="../index.html">← Feed Doctor</a> · free Google Shopping feed audit</p>
+  <h1>How to fix “Missing or invalid GTIN” in Google Shopping</h1>
+  <p class="lede">GTIN errors are the single most common Merchant Center disapproval — and the most
+  dangerous to "fix" the wrong way. Here's what the error means and how to resolve it safely.</p>
+
+  <h2>What a GTIN actually is</h2>
+  <p>A GTIN (Global Trade Item Number) is the number behind a product's barcode — UPC (12 digits), EAN
+  (13), or ITF-14. Google uses it to match your product to the same product across the web. If your item
+  has a manufacturer barcode, Google expects the GTIN in your feed.</p>
+
+  <h2>Why yours is "invalid"</h2>
+  <p>Every GTIN ends in a <strong>check digit</strong> — a value computed from the other digits. If even one
+  digit is mistyped, the check fails and Google rejects the GTIN as invalid. So "invalid GTIN" almost always
+  means a typo, a truncated number, or a made-up value — not a Google bug.</p>
+
+  <h2>The safe fix (and the dangerous mistake)</h2>
+  <div class="warn"><strong>Never invent or guess a GTIN.</strong> Submitting fabricated identifiers is a
+  policy violation that can get your whole Merchant Center account suspended. This is the most important rule
+  on this page.</div>
+  <p>Do this instead:</p>
+  <ol>
+    <li><strong>Has a real barcode?</strong> Copy the GTIN exactly, all digits, no spaces or dashes. Verify
+    the check digit is correct.</li>
+    <li><strong>No barcode (handmade, custom, own-brand)?</strong> Set <code>identifier_exists = no</code>
+    in your feed and include a <code>brand</code> where possible. This tells Google the product legitimately
+    has no GTIN — the approved way to handle it.</li>
+    <li><strong>Unsure?</strong> Remove the bad value and set <code>identifier_exists = no</code> rather than
+    leaving a wrong number in place.</li>
+  </ol>
+
+  <div class="cta">
+    <h3>Check every GTIN in your feed at once</h3>
+    <p class="muted">Feed Doctor validates the check digit on every GTIN in your product feed and flags the
+    ones Google will reject — instantly, in your browser.</p>
+    <a class="btn" href="../index.html">Audit my feed free →</a>
+  </div>
+
+  <h2>Fixing them in bulk</h2>
+  <p>If you have hundreds of products, fixing GTINs by hand is painful. Feed Doctor's Fixer applies the safe
+  rule automatically: it removes invalid GTINs and sets <code>identifier_exists = no</code> on the affected
+  rows, and never fabricates a value — then hands you a corrected feed to re-upload.</p>
+  <div class="cta">
+    <h3>Get a corrected feed</h3>
+    <a class="btn" href="https://winterjoy1.gumroad.com/l/feeddoctor">Get the Fixer — £24 →</a>
+  </div>
+
+  <p class="foot">Related: <a href="why-is-my-google-shopping-product-disapproved.html">All disapproval
+  reasons</a> · <a href="shopify-google-shopping-feed-errors.html">10 common Shopify feed errors</a><br>
+  Not affiliated with Google. Validates against Google's public product-data spec.</p>
+</div>
+</body>
+</html>
