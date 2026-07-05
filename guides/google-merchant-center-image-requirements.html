@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Merchant Center image requirements — why your images get disapproved (2026)</title>
+<meta name="description" content="Google Merchant Center image rules explained: valid image_link URLs, promotional overlay and watermark bans, size and background requirements, and how to fix image disapprovals.">
+<link rel="canonical" href="https://yoonustaji.github.io/feed-doctor/guides/google-merchant-center-image-requirements.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Merchant Center image requirements (and why images get disapproved)">
+<meta property="og:description" content="Valid image URLs, no promo overlays, size and background rules — and how to fix image disapprovals.">
+<meta property="og:image" content="https://yoonustaji.github.io/feed-doctor/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2338;--line:#273250;--text:#e8edf7;--muted:#9aa7c2;--brand:#4f8cff;--good:#22c55e;--crit:#ff5d6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 72px}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.top{font-size:14px;color:var(--muted)}
+h1{font-size:29px;line-height:1.2;letter-spacing:-.02em;margin:.4em 0 .2em}
+h2{font-size:21px;margin:1.6em 0 .3em}
+.lede{color:var(--muted);font-size:19px}
+.cta{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:22px;margin:26px 0;text-align:center}
+.cta h3{margin:.1em 0 .3em}
+.btn{display:inline-block;background:var(--brand);color:#fff;border-radius:10px;padding:12px 22px;font-weight:600;margin-top:6px}
+.muted{color:var(--muted)}
+code{background:#0e1424;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:15px}
+ul{padding-left:22px}li{margin:.35em 0}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="top"><a href="../index.html">← Feed Doctor</a> · free Google Shopping feed audit</p>
+  <h1>Google Merchant Center image requirements (and why your images get disapproved)</h1>
+  <p class="lede">Image problems are one of the most common — and most fixable — reasons products get
+  disapproved. They split into two groups: the <em>link</em> is broken, or the <em>image itself</em>
+  breaks a rule.</p>
+
+  <h2>The link problems (fix these first)</h2>
+  <ul>
+    <li><strong>Missing <code>image_link</code>.</strong> Every product needs one. No image, no listing.</li>
+    <li><strong>Not a valid URL.</strong> It must be a full, publicly reachable <code>https://</code> link —
+    not a relative path, not behind a login, not returning a 404.</li>
+    <li><strong>Blocked to Googlebot.</strong> If your CDN or robots rules block Google's crawler, the image
+    can't be fetched and the item is disapproved.</li>
+  </ul>
+
+  <div class="cta">
+    <h3>Catch missing/invalid image links in seconds</h3>
+    <p class="muted">Feed Doctor checks that every product has a valid <code>image_link</code> URL — free
+    and in your browser.</p>
+    <a class="btn" href="../index.html">Audit my feed free →</a>
+  </div>
+
+  <h2>The image-content rules</h2>
+  <ul>
+    <li><strong>No promotional overlays.</strong> Text, badges, or graphics on the image — "Sale", "Free
+    shipping", price stickers, watermarks, logos over the product — are disapproved. The image must show
+    the product, nothing else.</li>
+    <li><strong>Big enough.</strong> Google wants at least 100×100 px (250×250 for apparel), and rewards
+    larger. Tiny thumbnails get flagged.</li>
+    <li><strong>Real product, not a placeholder.</strong> "No image available" graphics, single-colour
+    blocks, or generic illustrations don't count.</li>
+    <li><strong>Right framing.</strong> The product should fill most of the frame on a plain, preferably
+    white background, and not be crammed, rotated, or cropped oddly.</li>
+  </ul>
+
+  <h2>How to fix them</h2>
+  <p>Link issues you can catch in your feed today (that's what <a href="../index.html">Feed Doctor</a>
+  checks). Content issues (overlays, size, background) live in the image files themselves — you'll need to
+  re-export clean product photos without any promo text or watermarks, then update <code>image_link</code>
+  to the new URLs and re-fetch the feed.</p>
+
+  <p class="foot">Related: <a href="why-is-my-google-shopping-product-disapproved.html">All disapproval
+  reasons</a> · <a href="fix-price-mismatch-google-merchant-center.html">Price mismatch</a> ·
+  <a href="fix-missing-invalid-gtin-google-shopping.html">Invalid GTIN</a><br>
+  Not affiliated with Google. Validates against Google's public product-data spec.</p>
+</div>
+<script src="../analytics.js"></script>
+</body>
+</html>

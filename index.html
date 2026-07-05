@@ -122,6 +122,8 @@
     <p style="margin:.2em 0"><a class="link" href="guides/why-is-my-google-shopping-product-disapproved.html">Why is my Google Shopping product disapproved? (2026 guide)</a></p>
     <p style="margin:.2em 0"><a class="link" href="guides/fix-missing-invalid-gtin-google-shopping.html">How to fix “Missing or invalid GTIN” in Google Shopping</a></p>
     <p style="margin:.2em 0"><a class="link" href="guides/shopify-google-shopping-feed-errors.html">10 common Shopify → Google Shopping feed errors (and fixes)</a></p>
+    <p style="margin:.2em 0"><a class="link" href="guides/fix-price-mismatch-google-merchant-center.html">How to fix “Price mismatch” in Google Merchant Center</a></p>
+    <p style="margin:.2em 0"><a class="link" href="guides/google-merchant-center-image-requirements.html">Google Merchant Center image requirements explained</a></p>
   </div>
 
   <p class="foot">
@@ -131,6 +133,7 @@
 </div>
 
 <script src="engine.js"></script>
+<script src="analytics.js"></script>
 <script>
 (function(){
   var $ = function(s){return document.querySelector(s)};
@@ -227,6 +230,7 @@
     report.innerHTML=h;
     report.classList.remove('hidden');
     paywall.classList.toggle('hidden', res.atRiskRows===0);
+    if(window.fdTrack) window.fdTrack('feed_audited');
     report.scrollIntoView({behavior:'smooth',block:'start'});
   }
 
