@@ -13,7 +13,7 @@
 (function () {
   'use strict';
 
-  var CODE = ''; // <-- set to "feeddoctor" (your GoatCounter code) to activate
+  var CODE = 'feeddoctor'; // GoatCounter code — analytics ACTIVE
 
   // Always define a safe no-op so page code can call window.fdTrack() unconditionally.
   window.fdTrack = window.fdTrack || function () {};
