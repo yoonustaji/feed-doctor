@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed Doctor — Why are my Google Shopping products disapproved?</title>
+<meta name="description" content="Free instant audit of your Google Shopping / Shopify product feed. See exactly which products will be disapproved and why. 100% private — your feed never leaves your browser.">
+<style>
+  :root{
+    --bg:#0b1020; --panel:#131a2e; --panel2:#1a2338; --line:#273250;
+    --text:#e8edf7; --muted:#9aa7c2; --brand:#4f8cff; --good:#22c55e;
+    --warn:#f5a524; --crit:#ff5d6c; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -200px,#1b2547 0,var(--bg) 60%);
+    color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+  header{text-align:center;padding:24px 0 8px}
+  .pill{display:inline-block;font-size:13px;color:var(--brand);background:rgba(79,140,255,.12);
+    border:1px solid rgba(79,140,255,.35);padding:5px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:34px;line-height:1.15;margin:.2em 0 .35em;letter-spacing:-.02em}
+  h1 .em{color:var(--brand)}
+  .sub{color:var(--muted);font-size:18px;max-width:620px;margin:0 auto}
+  .trust{margin-top:14px;font-size:13.5px;color:var(--good)}
+  .trust svg{vertical-align:-2px;margin-right:5px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:26px}
+  .drop{border:2px dashed var(--line);border-radius:var(--radius);padding:38px 20px;text-align:center;
+    cursor:pointer;transition:.15s;background:var(--panel)}
+  .drop:hover,.drop.over{border-color:var(--brand);background:var(--panel2)}
+  .drop h3{margin:.2em 0;font-size:19px}
+  .drop p{color:var(--muted);margin:.3em 0}
+  .btn{display:inline-block;border:0;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:600;
+    cursor:pointer;text-decoration:none}
+  .btn.primary{background:var(--brand);color:#fff}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn.pay{background:linear-gradient(90deg,#4f8cff,#7b6bff);color:#fff;font-size:16px;padding:14px 24px}
+  .row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+  .hidden{display:none}
+  /* score */
+  .score{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+  .gauge{--pct:0;width:120px;height:120px;border-radius:50%;flex:0 0 auto;
+    background:conic-gradient(var(--gc) calc(var(--pct)*1%),#22304e 0);display:grid;place-items:center}
+  .gauge .inner{width:92px;height:92px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}
+  .gauge .inner b{font-size:26px;display:block}
+  .gauge .inner span{font-size:11px;color:var(--muted)}
+  .headline b{font-size:30px}
+  .headline .crit{color:var(--crit)}
+  .headline .ok{color:var(--good)}
+  .stat{color:var(--muted);font-size:14px;margin-top:6px}
+  .prob{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .prob h3{margin:0 0 10px;font-size:16px}
+  .issue{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--panel2)}
+  .tag{flex:0 0 auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:4px 8px;border-radius:6px;height:fit-content}
+  .tag.critical{background:rgba(255,93,108,.15);color:var(--crit)}
+  .tag.warning{background:rgba(245,165,36,.15);color:var(--warn)}
+  .issue .body{flex:1}
+  .issue .cause{font-weight:600}
+  .issue .fix{color:var(--muted);font-size:14px;margin-top:3px}
+  .issue .cnt{color:var(--muted);font-size:13px;white-space:nowrap}
+  .paywall{margin-top:24px;text-align:center;background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .paywall h3{margin:.1em 0 .3em;font-size:22px}
+  .paywall p{color:var(--muted);margin:.3em auto 16px;max-width:520px}
+  .muted{color:var(--muted)}
+  .foot{margin-top:40px;text-align:center;color:var(--muted);font-size:13px}
+  .foot a{color:var(--brand);text-decoration:none}
+  a.link{color:var(--brand);text-decoration:none}
+  code{background:#0e1424;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px}
+  .err{color:var(--crit);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="pill">Free · Instant · No signup</span>
+    <h1>Why are your Google Shopping products <span class="em">disapproved</span>?</h1>
+    <p class="sub">Drop in your product feed and get an instant, plain-English report of exactly which
+      products Google will reject — and how to fix each one.</p>
+    <p class="trust">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z"/></svg>
+      Your feed never leaves your browser. 100% client-side — we can't see your data.
+    </p>
+  </header>
+
+  <div class="card">
+    <div id="drop" class="drop">
+      <h3>Drop your product feed here</h3>
+      <p>Shopify export, Google Merchant feed, or any product CSV / TSV / XML</p>
+      <p style="margin-top:14px"><span class="btn primary">Choose file</span></p>
+      <p class="muted" style="font-size:13px;margin-top:14px">or <a class="link" id="trySample" href="#">try a sample messy feed</a></p>
+      <input id="file" type="file" accept=".csv,.tsv,.txt,.xml" class="hidden">
+    </div>
+    <div id="parseErr" class="err hidden"></div>
+  </div>
+
+  <div id="report" class="card hidden"></div>
+
+  <div id="paywall" class="paywall hidden">
+    <h3>Get the corrected feed file</h3>
+    <p>We'll generate a ready-to-upload, fixed version of your feed — GTINs handled the safe way
+      (<code>identifier_exists&nbsp;=&nbsp;no</code>, never invented), prices &amp; availability normalised,
+      titles cleaned. Re-upload it to Merchant Center and clear the disapprovals.</p>
+    <p class="row">
+      <a class="btn pay" id="buyLink" href="https://winterjoy1.gumroad.com/l/feeddoctor" target="_blank" rel="noopener">Fix my feed — £24 one-time</a>
+    </p>
+    <p class="muted" style="font-size:13px;margin-top:12px">Or monitor a feed continuously from £14/mo — re-check after every store change.</p>
+  </div>
+
+  <p class="foot">
+    Feed Doctor validates your file against Google's public product-data spec. Not affiliated with Google.
+    Runs entirely in your browser. &nbsp;·&nbsp; <a href="#" id="reset">Check another feed</a>
+  </p>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function(){
+  var $ = function(s){return document.querySelector(s)};
+  var drop=$('#drop'), fileInput=$('#file'), report=$('#report'),
+      paywall=$('#paywall'), parseErr=$('#parseErr');
+
+  // ---- tiny CSV/TSV parser (RFC-4180-ish: quotes, escaped quotes, newlines) ----
+  function parseDelimited(text, delim){
+    var rows=[], row=[], field='', i=0, inQ=false, c;
+    function pushField(){ row.push(field); field=''; }
+    function pushRow(){ pushField(); rows.push(row); row=[]; }
+    while(i<text.length){
+      c=text[i];
+      if(inQ){
+        if(c==='"'){ if(text[i+1]==='"'){field+='"';i++;} else inQ=false; }
+        else field+=c;
+      } else {
+        if(c==='"') inQ=true;
+        else if(c===delim) pushField();
+        else if(c==='\n'){ pushRow(); }
+        else if(c==='\r'){ /* skip */ }
+        else field+=c;
+      }
+      i++;
+    }
+    if(field.length||row.length) pushRow();
+    return rows.filter(function(r){return r.length>1 || (r.length===1 && r[0].trim()!=='')});
+  }
+  function rowsToObjects(matrix){
+    if(!matrix.length) return [];
+    var head=matrix[0].map(function(h){return String(h).trim()});
+    return matrix.slice(1).map(function(r){
+      var o={}; head.forEach(function(h,idx){o[h]=r[idx]!==undefined?r[idx]:''}); return o;
+    });
+  }
+  function parseXml(text){
+    var doc=new DOMParser().parseFromString(text,'application/xml');
+    var items=doc.getElementsByTagName('item');
+    var out=[];
+    for(var k=0;k<items.length;k++){
+      var o={}, ch=items[k].children;
+      for(var j=0;j<ch.length;j++){
+        var name=ch[j].localName || ch[j].nodeName.replace(/^g:/,'');
+        o[name]=(ch[j].textContent||'').trim();
+      }
+      out.push(o);
+    }
+    return out;
+  }
+  function parse(name, text){
+    var lower=name.toLowerCase();
+    if(lower.endsWith('.xml')) return parseXml(text);
+    var delim = lower.endsWith('.tsv') ? '\t' :
+      ((text.split('\n')[0]||'').split('\t').length > (text.split('\n')[0]||'').split(',').length ? '\t' : ',');
+    return rowsToObjects(parseDelimited(text, delim));
+  }
+
+  function esc(s){return String(s).replace(/[&<>]/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[m]})}
+
+  function render(res){
+    parseErr.classList.add('hidden');
+    if(!res.totalRows){
+      parseErr.textContent='Could not read any product rows from that file. Make sure it has a header row and product columns.';
+      parseErr.classList.remove('hidden');
+      report.classList.add('hidden'); paywall.classList.add('hidden');
+      return;
+    }
+    var healthPct=Math.round((res.healthyRows/res.totalRows)*100);
+    var gc = healthPct>=80?'var(--good)':healthPct>=50?'var(--warn)':'var(--crit)';
+    var h='';
+    h+='<div class="score">';
+    h+='<div class="gauge" style="--pct:'+healthPct+';--gc:'+gc+'"><div class="inner"><div><b>'+healthPct+'%</b><span>feed health</span></div></div></div>';
+    h+='<div class="headline">';
+    if(res.atRiskRows>0){
+      h+='<b class="crit">'+res.atRiskRows+'</b> of <b>'+res.totalRows+'</b> products will be disapproved';
+      h+='<div class="stat">'+res.criticalCount+' critical issue'+(res.criticalCount===1?'':'s')+' · '+res.warningCount+' warning'+(res.warningCount===1?'':'s')+' · '+res.healthyRows+' healthy</div>';
+    } else {
+      h+='<b class="ok">All '+res.totalRows+' products look valid ✓</b>';
+      h+='<div class="stat">'+res.warningCount+' warning'+(res.warningCount===1?'':'s')+' worth reviewing.</div>';
+    }
+    h+='</div></div>';
+
+    if(res.ranked.length){
+      h+='<div class="prob"><h3>What’s wrong, ranked by how many products it affects</h3>';
+      res.ranked.forEach(function(p){
+        h+='<div class="issue">';
+        h+='<span class="tag '+p.sev+'">'+(p.sev==='critical'?'Disapproval':'Warning')+'</span>';
+        h+='<div class="body"><div class="cause">'+esc(p.cause)+'</div><div class="fix">Fix: '+esc(p.fix)+'</div></div>';
+        h+='<div class="cnt">'+p.count+' product'+(p.count===1?'':'s')+'</div>';
+        h+='</div>';
+      });
+      h+='</div>';
+    }
+    report.innerHTML=h;
+    report.classList.remove('hidden');
+    paywall.classList.toggle('hidden', res.atRiskRows===0);
+    report.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function handleText(name, text){
+    try{
+      var rows=parse(name, text);
+      var res=window.FeedDoctor.validate(rows);
+      render(res);
+    }catch(e){
+      parseErr.textContent='Sorry — could not parse that file ('+e.message+'). Try a CSV, TSV, or XML product feed.';
+      parseErr.classList.remove('hidden');
+    }
+  }
+  function handleFile(f){
+    var r=new FileReader();
+    r.onload=function(){handleText(f.name, String(r.result))};
+    r.onerror=function(){parseErr.textContent='Could not read that file.';parseErr.classList.remove('hidden')};
+    r.readAsText(f);
+  }
+
+  drop.addEventListener('click',function(){fileInput.click()});
+  fileInput.addEventListener('change',function(){ if(fileInput.files[0]) handleFile(fileInput.files[0]); });
+  ['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('over')})});
+  drop.addEventListener('drop',function(e){ var f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+
+  $('#trySample').addEventListener('click',function(e){
+    e.preventDefault(); e.stopPropagation();
+    handleText('sample.csv', SAMPLE);
+  });
+  $('#reset').addEventListener('click',function(e){
+    e.preventDefault(); report.classList.add('hidden'); paywall.classList.add('hidden');
+    parseErr.classList.add('hidden'); fileInput.value=''; window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // A realistic messy sample feed for one-click demoing.
+  var SAMPLE=[
+    'id,title,description,link,image_link,price,availability,condition,gtin,brand',
+    'A1,Bosch 18V Cordless Drill Driver,Compact drill with 2 batteries,https://shop.example.com/drill,https://cdn.example.com/drill.jpg,129.99 GBP,in_stock,new,4006381333931,Bosch',
+    'A2,CHEAPEST HAMMER FREE SHIPPING,A hammer,https://shop.example.com/hammer,https://cdn.example.com/hammer.jpg,"9,99",available,new,,Generic',
+    'A3,Widget,,https://shop.example.com/widget,,4.50 GBP,in_stock,new,4006381333930,Acme',
+    'A4,Stainless Steel Water Bottle 750ml,Insulated bottle keeps drinks cold 24h,https://shop.example.com/bottle,https://cdn.example.com/bottle.jpg,,in_stock,new,5012345678900,HydroCo',
+    ',Orphan Product,No id and no link,,https://cdn.example.com/x.jpg,1.00 GBP,in_stock,new,,',
+    'A6,Premium Leather Wallet,Handmade full-grain leather wallet,https://shop.example.com/wallet,https://cdn.example.com/wallet.jpg,39.00 GBP,in stock,used,,Craft&Co'
+  ].join('\n');
+})();
+</script>
+</body>
+</html>
